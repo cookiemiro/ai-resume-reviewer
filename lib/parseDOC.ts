@@ -1,6 +1,10 @@
-import mammoth from "mammoth";
-
 export async function parseDOC(buffer: Buffer): Promise<string> {
-  const result = await mammoth.extractRawText({ buffer });
-  return result.value;
+  try {
+    const mammoth = await import("mammoth");
+    const result = await mammoth.extractRawText({ buffer });
+    return result.value;
+  } catch (err) {
+    console.error("❌ DOC 파싱 실패:", err);
+    throw err;
+  }
 }
